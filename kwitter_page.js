@@ -1,5 +1,6 @@
-//YOUR FIREBASE LINKS
-var firebaseConfig = {
+ // Your web app's Firebase configuration
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  var firebaseConfig = {
     apiKey: "AIzaSyDPUJj-S3-5ftwJiqGl7_tOHTCkhkpT-lc",
     authDomain: "project-96-5a2eb.firebaseapp.com",
     projectId: "project-96-5a2eb",
@@ -10,7 +11,8 @@ var firebaseConfig = {
   };
   // Initialize Firebase
   firebase.initializeApp(firebaseConfig);
- 
+
+
 
 
 var user_name = localStorage.getItem("user_name");
@@ -33,10 +35,36 @@ function getData() { firebase.database().ref("/"+room_name).on('value', function
 
     
 //Start code
+console.log(firebase_message_id);
+console.log(message_data);
+
+name = message_data['name'];
+message=  message_data['message'];
+like= message_data['like'];
+
+name_with_tag="<h4> "+name+" <imag src='tick.png' class='user_name'></h4>"
+message_with_tag="<h4 class='message_h4'>"+message+" </h4>"
+like_with_tag=" <button class='btn btn-warning' id="+firebase_message_id+" value="+like+" onclick='updatelike(this.id)'> <span class='glyphicon glyphicon-thumbs-up'> Like: "+like+"</span> </button>"
+
+row = name_with_tag+message_with_tag+like_with_tag
+document.getElementById("output").innerHTML+=row;
 
 //End code
  } });  }); }
+ 
 getData();
+
+function updatelike(messageid){
+  console.log("Clicked On The Like Button"+messageid);
+  buttonid=messageid;
+  like=document.getElementById(buttonid).value;
+  updatedlike= Number(like)+1;
+  console.log(updatedlike);
+  firebase.database().ref(room_name).child(messageid).update({
+    like: updatedlike
+});
+}
+
 
 function logout() {
     localStorage.removeItem('user_name')

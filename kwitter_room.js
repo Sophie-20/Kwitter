@@ -40,7 +40,7 @@
       
     function logout() {
       localStorage.removeItem('user_name')
-      window.location('index.html')
+      window.location='index.html'
     }
     
     function add_room() {
@@ -49,5 +49,5 @@
         purpose: 'Adding Room Name'
       })
       localStorage.setItem("room_name", roomname)
-      window.location=('kwitter_page.html')
+      window.location="kwitter_page.html"
     }
